@@ -1,4 +1,4 @@
-name: 从ROM提取boot
+name: 从ROM提取init_boot
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       rom_url:
         description: 'ROM 下载直链'
         required: true
-        default: 'https://bigota.d.miui.com/V14.0.5.0.TKPCNXM/miui_CHOPIN_V14.0.5.0.TKPCNXM_242d1a6ff5_13.0.zip'
+        default: 'https://bigota.d.miui.com/V14.0.10.0.TMACNXM/miui_ISHTAR_V14.0.10.0.TMACNXM_2ec0d6548d_13.0.zip'
 
 jobs:
   Extract_boot:
@@ -29,7 +29,7 @@ jobs:
           aria2c -s 10 -x 10 -d . -o firmware.zip "${{ github.event.inputs.rom_url }}"
           unzip firmware.zip
           chmod +x ./payload-dumper-go
-          ./payload-dumper-go -p boot payload.bin
+          ./payload-dumper-go -p init_boot payload.bin
       - name: 提交信息
         run: |
           cd ${{ github.workspace }}
@@ -44,4 +44,3 @@ jobs:
             bodyfile: "${{ github.workspace }}/info.md"
             tag: "Magisk_${{ env.BUILD_TIME }}_${{ github.run_id }}"
             token: ${{ secrets.GITHUB_TOKEN }}
-
