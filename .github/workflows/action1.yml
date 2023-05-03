@@ -35,7 +35,7 @@ jobs:
           cd ${{ github.workspace }}
           touch info.md
           echo "提交日期：$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')" >> info.md
-          echo "下载直链：${{ github.event.inputs.boot_url }}" >> info.md
+          echo "下载直链：${{ github.event.inputs.rom_url }}" >> info.md
 
       - name: 上传镜像
         uses: ncipollo/release-action@v1.12.0
